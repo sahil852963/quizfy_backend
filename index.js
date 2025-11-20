@@ -9,7 +9,6 @@ const routeNotFound = require("./middleware/routeNotFound.middleware");
 const authVerify = require("./middleware/authVerify.middleware");
 
 const quizRouter = require('./router/quiz.router');
-// import express from 'express';
 
 const app = express();
 app.use(cors());
@@ -53,10 +52,6 @@ app.post('/auth/signup', authVerify, (req, res) => {
 })
 
 app.use(routeNotFound);
-
-// app.get("/quiz", (req, res) => {
-//     res.send(quizzes);
-// })
 
 app.listen(PORT, () => {
     console.log("server running");
