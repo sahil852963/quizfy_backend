@@ -5,6 +5,8 @@ const quizzes = require("./db/quizzes");
 const userData = require('./db/users');
 const { v4: uuid } = require('uuid');
 const jwt = require("jsonwebtoken");
+const routeNotFound = require("./middleware/routeNotFound.middleware");
+const authVerify = require("./middleware/authVerify.middleware");
 
 const quizRouter = require('./router/quiz.router');
 // import express from 'express';
@@ -19,26 +21,9 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 })
 
-const routeNotFound = (req, res) => {
-    res.status(404).json({message: "Page Not Found"});
-}
-
-const authVerify = (req, res) => {
-    const token = req.headers.suthorisation;
-    try {
-        const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-        if (decodedToken) {
-            req.user = { userId: decodedToken.id }
-            return next();
-        }
-    } catch (err) {
-        console.error(`Error in verifying auth token: ${err}`);
-    }
-}
-
 app.use('/quiz', quizRouter);
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', authVerify, (req, res) => {
     const { username, password } = req.body;
     // res.json({username, password})
     const isUserVerified = userData.users.some(user => user.username == username && user.password == password);
@@ -50,7 +35,7 @@ app.post('/auth/login', (req, res) => {
 })
 
 
-app.post('/auth/signup', (req, res) => {
+app.post('/auth/signup', authVerify, (req, res) => {
     const { username, password } = req.body;
     const isUserPresent = userData.users.some(user => user.username == username);
     if (isUserPresent) {
