@@ -1,0 +1,25 @@
+{
+  "name": "quizfy_backend",
+  "version": "1.0.0",
+  "description": "A quiz app built using expressjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahil852963/quizfy_backend.git"
+  },
+  "author": "Sahil Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sahil852963/quizfy_backend/issues"
+  },
+  "homepage": "https://github.com/sahil852963/quizfy_backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^13.0.0"
+  }
+}
